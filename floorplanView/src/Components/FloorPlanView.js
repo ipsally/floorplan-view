@@ -18,6 +18,7 @@ class FloorPlanView extends Component {
 
     onPressChange() {
         const options = {
+            title: 'Select project floorplan',
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -52,7 +53,7 @@ class FloorPlanView extends Component {
         const { floorplanViewStyle, imagePickerViewStyle } = styles;
         console.log(this.state);
         return (
-            <View>
+            <View style={floorplanViewStyle}>
                 <View style={imagePickerViewStyle}>
                     <Button
                         onPress={this.onPressChange.bind(this)}
@@ -60,20 +61,18 @@ class FloorPlanView extends Component {
                         color="#841584"
                     />
                 </View>
-                <View style={floorplanViewStyle}>
-                    <ImageZoom
-                        cropWidth={Dimensions.get('window').width}
-                        cropHeight={Dimensions.get('window').height}
-                        imageWidth={this.state.imageHeight}
-                        imageHeight={this.state.imageWidth}
-                        enableCenterFocus={false}
-                    >
-                        <Image
-                            source={this.state.image}
-                            style={{ flex: 1 }}
-                        />
-                    </ImageZoom>
-                </View>
+                <ImageZoom
+                    cropWidth={Dimensions.get('window').width}
+                    cropHeight={Dimensions.get('window').height - imagePickerViewStyle.paddingTop - 35}
+                    imageWidth={this.state.imageHeight}
+                    imageHeight={this.state.imageWidth}
+                    enableCenterFocus={false}
+                >
+                    <Image
+                        source={this.state.image}
+                        style={{ flex: 1 }}
+                    />
+                </ImageZoom>
             </View>);
     }
 }
@@ -85,7 +84,7 @@ const styles = {
     },
     imagePickerViewStyle: {
         backgroundColor: '#F8F8F8',
-        paddingTop: Platform.OS === 'ios' ? 55 : 15
+        paddingTop: Platform.OS === 'ios' ? 55 : 0
     }
 };
 
